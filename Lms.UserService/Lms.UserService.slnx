@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Application/" />
+  <Folder Name="/src/Domain/" />
+  <Folder Name="/src/Infrastructure/" />
+  <Folder Name="/src/Web/">
+    <Project Path="../src/Webb/Lms.UserService.Web/Lms.UserService.Web.csproj" />
+  </Folder>
+</Solution>

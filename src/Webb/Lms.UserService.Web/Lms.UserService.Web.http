@@ -1,0 +1,6 @@
+@Lms.UserService.Web_HostAddress = http://localhost:5138
+
+GET {{Lms.UserService.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
