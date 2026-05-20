@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Application/">
+    <Project Path="src/Application/Lms.UserService.Application/Lms.UserService.Application.csproj" />
+  </Folder>
+  <Folder Name="/src/Domain/">
+    <Project Path="src/Domain/Lms.UserService.Domain/Lms.UserService.Domain.csproj" />
+  </Folder>
+  <Folder Name="/src/Infrastructure/">
+    <Project Path="src/Infrastructure/Lms.UserService.Infrastructure/Lms.UserService.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Web/">
+    <Project Path="src/Web/Lms.UserService.Web/Lms.UserService.Web.csproj" />
+  </Folder>
+</Solution>
