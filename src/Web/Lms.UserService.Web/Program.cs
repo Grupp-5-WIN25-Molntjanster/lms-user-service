@@ -1,5 +1,5 @@
 using Lms.UserService.Application.Interfaces.Profile;
-using Lms.UserService.Application.Services.Profile;
+using Lms.UserService.Infrastructure.Services.Profile;
 using Lms.UserService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
