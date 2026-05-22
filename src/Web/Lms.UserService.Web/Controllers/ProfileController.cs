@@ -1,4 +1,5 @@
-﻿using Lms.UserService.Application.Interfaces.Profile;
+﻿using Lms.UserService.Application.DTOs.Profile;
+using Lms.UserService.Application.Interfaces.Profile;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lms.UserService.Web.Controllers;
@@ -20,6 +21,15 @@ public class ProfileController : ControllerBase
     public async Task<IActionResult> GetProfile()
     {
         var result = await _profileService.GetProfileAsync();
+
+        return Ok(result);
+    }
+
+    //uppdaterar användarens profil
+    [HttpPut]
+    public async Task<IActionResult> UpdateProfile(UpdateProfileRequestDto request)
+    {
+        var result = await _profileService.UpdateProfileAsync(request);
 
         return Ok(result);
     }
