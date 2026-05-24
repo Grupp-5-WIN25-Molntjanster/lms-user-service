@@ -18,10 +18,11 @@ public class ProfileService : IProfileService
         _context = context;
     }
 
-    public async Task<ProfileResponseDto> GetProfileAsync()
+    public async Task<ProfileResponseDto> GetProfileAsync(string userId)
     {
         //hämtar första profilen från databasen
-        var profile = await _context.Profiles.FirstOrDefaultAsync();
+        var profile = await _context.Profiles
+    .FirstOrDefaultAsync(x => x.UserId == userId);
 
         //om ingen profil finns
         if (profile == null)
@@ -46,10 +47,11 @@ public class ProfileService : IProfileService
         };
     }
 
-    public async Task<ProfileResponseDto> UpdateProfileAsync(UpdateProfileRequestDto request)
+    public async Task<ProfileResponseDto> UpdateProfileAsync(string userId, UpdateProfileRequestDto request)
     {
         //hämtar första profilen från databasen
-        var profile = await _context.Profiles.FirstOrDefaultAsync();
+        var profile = await _context.Profiles
+    .FirstOrDefaultAsync(x => x.UserId == userId);
 
         //skapar profil om ingen finns
         if (profile == null)
@@ -57,7 +59,7 @@ public class ProfileService : IProfileService
             profile = new Domain.Entities.ProfileEntity
             {
                 Id = Guid.NewGuid(),
-                UserId = "123"
+                UserId = userId
             };
 
             _context.Profiles.Add(profile);

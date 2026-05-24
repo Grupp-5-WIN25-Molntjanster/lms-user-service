@@ -1,11 +1,13 @@
 ﻿using Lms.UserService.Application.DTOs.Password;
 using Lms.UserService.Application.Interfaces.Password;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lms.UserService.Web.Controllers;
 
 [ApiController]
 [Route("api/profile/password")]
+[Authorize]
 public class PasswordController : ControllerBase
 {
     private readonly IPasswordService _passwordService;

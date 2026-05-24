@@ -1,16 +1,20 @@
 ﻿using Lms.UserService.Application.DTOs.Profile;
 using Lms.UserService.Application.Interfaces.Profile;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Lms.UserService.Web.Controllers;
 
 [ApiController]
 [Route("api/profile")]
+[Authorize]
 public class ProfileController : ControllerBase
 {
     private readonly IProfileService _profileService;
 
-    //häämtar in service via dependency injection
+    //hämtar in service via dependency injection
     public ProfileController(IProfileService profileService)
     {
         _profileService = profileService;
@@ -20,7 +24,17 @@ public class ProfileController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetProfile()
     {
-        var result = await _profileService.GetProfileAsync();
+        //hämtar userId från jwt token
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+                     ?? User.FindFirstValue(JwtRegisteredClaimNames.Sub);
+
+        //om ingen token eller userId finns
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized();
+        }
+
+        var result = await _profileService.GetProfileAsync(userId);
 
         return Ok(result);
     }
@@ -29,7 +43,17 @@ public class ProfileController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> UpdateProfile(UpdateProfileRequestDto request)
     {
-        var result = await _profileService.UpdateProfileAsync(request);
+        //hämtar userId från jwt token
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+                     ?? User.FindFirstValue(JwtRegisteredClaimNames.Sub);
+
+        //om ingen token eller userId finns
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized();
+        }
+
+        var result = await _profileService.UpdateProfileAsync(userId, request);
 
         return Ok(result);
     }
