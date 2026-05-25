@@ -12,5 +12,5 @@
   <Folder Name="/src/Web/">
     <Project Path="src/Web/Lms.UserService.Web/Lms.UserService.Web.csproj" />
   </Folder>
-  <Project Path="Lms.UserService.Tests/Lms.UserService.Tests.csproj" Id="c940ccbf-a9b9-4de4-bd21-c14f92145cda" />
+  <Project Path="tests/Lms.UserService.Tests/Lms.UserService.Tests.csproj" />
 </Solution>
