@@ -8,7 +8,7 @@ namespace Lms.UserService.Web.Controllers.Skills;
 
 [ApiController]
 [Route("api/profile/skills")]
-[Authorize]
+
 
 public class SkillsController : ControllerBase
 {

@@ -1,18 +1,29 @@
-using Lms.UserService.Application.Interfaces.Profile;
-using Lms.UserService.Infrastructure.Services.Profile;
-using Lms.UserService.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 using Lms.UserService.Application.Interfaces.Password;
-using Lms.UserService.Infrastructure.Services.Password;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
+using Lms.UserService.Application.Interfaces.Profile;
 using Lms.UserService.Application.Interfaces.Skills;
+using Lms.UserService.Infrastructure.Data;
+using Lms.UserService.Infrastructure.Services.Password;
+using Lms.UserService.Infrastructure.Services.Profile;
 using Lms.UserService.Infrastructure.Services.Skills;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
 //jwt inställningar
 
@@ -72,6 +83,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
 app.UseAuthorization();

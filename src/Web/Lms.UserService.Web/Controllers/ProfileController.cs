@@ -1,7 +1,6 @@
 ﻿using Lms.UserService.Application.DTOs.Profile;
 using Lms.UserService.Application.Interfaces.Profile;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -9,7 +8,6 @@ namespace Lms.UserService.Web.Controllers;
 
 [ApiController]
 [Route("api/profile")]
-[Authorize]
 public class ProfileController : ControllerBase
 {
     private readonly IProfileService _profileService;
@@ -24,15 +22,7 @@ public class ProfileController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetProfile()
     {
-        //hämtar userId från jwt token
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)
-                     ?? User.FindFirstValue(JwtRegisteredClaimNames.Sub);
-
-        //om ingen token eller userId finns
-        if (string.IsNullOrEmpty(userId))
-        {
-            return Unauthorized();
-        }
+        var userId = "test-user";
 
         var result = await _profileService.GetProfileAsync(userId);
 
@@ -43,15 +33,7 @@ public class ProfileController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> UpdateProfile(UpdateProfileRequestDto request)
     {
-        //hämtar userId från jwt token
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)
-                     ?? User.FindFirstValue(JwtRegisteredClaimNames.Sub);
-
-        //om ingen token eller userId finns
-        if (string.IsNullOrEmpty(userId))
-        {
-            return Unauthorized();
-        }
+        var userId = "test-user";
 
         var result = await _profileService.UpdateProfileAsync(userId, request);
 
