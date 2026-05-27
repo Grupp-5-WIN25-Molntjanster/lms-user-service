@@ -13,4 +13,5 @@ public class ApplicationDbContext : DbContext
 
     //profile tabellen i databasen
     public DbSet<ProfileEntity> Profiles { get; set; }
+    public DbSet<SkillEntity> Skills { get; set; }
 }
