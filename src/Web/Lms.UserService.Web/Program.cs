@@ -6,6 +6,8 @@ using Lms.UserService.Application.Interfaces.Password;
 using Lms.UserService.Infrastructure.Services.Password;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Lms.UserService.Application.Interfaces.Skills;
+using Lms.UserService.Infrastructure.Services.Skills;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -54,6 +56,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IProfileService, ProfileService>();
 
 builder.Services.AddScoped<IPasswordService, PasswordService>();
+
+builder.Services.AddScoped<ISkillService, SkillService>();
 
 //registrerar httpclient för auth service
 builder.Services.AddHttpClient();
