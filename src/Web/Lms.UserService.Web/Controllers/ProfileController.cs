@@ -3,6 +3,7 @@ using Lms.UserService.Application.Interfaces.Profile;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using Lms.UserService.Infrastructure.Services.BlobStorage;
 
 namespace Lms.UserService.Web.Controllers;
 
@@ -11,11 +12,15 @@ namespace Lms.UserService.Web.Controllers;
 public class ProfileController : ControllerBase
 {
     private readonly IProfileService _profileService;
+    private readonly BlobStorageService _blobStorageService;
 
     //hämtar in service via dependency injection
-    public ProfileController(IProfileService profileService)
+    public ProfileController(
+        IProfileService profileService,
+        BlobStorageService blobStorageService)
     {
         _profileService = profileService;
+        _blobStorageService = blobStorageService;
     }
 
     //hämtar användarens profil
@@ -38,5 +43,24 @@ public class ProfileController : ControllerBase
         var result = await _profileService.UpdateProfileAsync(userId, request);
 
         return Ok(result);
+    }
+
+    [HttpPost("upload-image")]
+    public async Task<IActionResult> UploadImage(
+    IFormFile file)
+    {
+        if (file == null || file.Length == 0)
+            return BadRequest("No file uploaded");
+
+        var imageUrl =
+            await _blobStorageService.UploadFileAsync(
+    file.OpenReadStream(),
+    file.FileName
+            );
+
+        return Ok(new
+        {
+            imageUrl
+        });
     }
 }
