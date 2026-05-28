@@ -7,4 +7,6 @@ public class AchievementEntity
     public string UserId { get; set; } = null!;
 
     public string Title { get; set; } = null!;
+
+    public string Icon { get; set; } = null!;
 }

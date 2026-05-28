@@ -428,3 +428,6 @@ FodyWeavers.xsd
 *.msm
 *.msp
 /src/Web/Lms.UserService.Web/appsettings.json
+
+appsettings.*.json
+appsettings.Development.json

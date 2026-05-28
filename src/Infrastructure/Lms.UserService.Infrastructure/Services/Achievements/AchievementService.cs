@@ -24,7 +24,8 @@ public class AchievementService : IAchievementService
         return achievements.Select(x => new AchievementResponseDto
         {
             Id = x.Id,
-            Title = x.Title
+            Title = x.Title,
+            Icon = x.Icon
         });
     }
 
@@ -36,7 +37,8 @@ public class AchievementService : IAchievementService
         {
             Id = Guid.NewGuid(),
             UserId = userId,
-            Title = request.Title
+            Title = request.Title,
+            Icon = request.Icon
         };
 
         _context.Achievements.Add(achievement);
@@ -46,7 +48,8 @@ public class AchievementService : IAchievementService
         return new AchievementResponseDto
         {
             Id = achievement.Id,
-            Title = achievement.Title
+            Title = achievement.Title,
+            Icon = achievement.Icon
         };
     }
 

@@ -11,15 +11,15 @@ public class BlobStorageService
     public BlobStorageService(IConfiguration configuration)
     {
         _connectionString =
-            configuration["AzureBlobStorage:ConnectionString"]!;
+            configuration["BlobConnectionString"]!;
 
         _containerName =
-            configuration["AzureBlobStorage:ContainerName"]!;
+            configuration["BlobContainerName"]!;
     }
 
     public async Task<string> UploadFileAsync(
-    Stream stream,
-    string fileName)
+        Stream stream,
+        string fileName)
     {
         var blobContainerClient =
             new BlobContainerClient(
