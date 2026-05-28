@@ -20,7 +20,6 @@ public class PasswordService : IPasswordService
         //hämtar auth service url från appsettings
         var authServiceUrl = _configuration["ServiceUrls:AuthService"];
 
-        //här ska request senare skickas till auth service
 
         //mockad lösning just nu
         await Task.CompletedTask;

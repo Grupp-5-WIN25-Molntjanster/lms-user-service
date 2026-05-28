@@ -11,10 +11,11 @@ namespace Lms.UserService.Web.Controllers;
 [Route("api/profile")]
 public class ProfileController : ControllerBase
 {
+    // services som används i controllern
     private readonly IProfileService _profileService;
     private readonly BlobStorageService _blobStorageService;
 
-    //hämtar in service via dependency injection
+    // hämtas in via dependency injection
     public ProfileController(
         IProfileService profileService,
         BlobStorageService blobStorageService)
@@ -23,10 +24,11 @@ public class ProfileController : ControllerBase
         _blobStorageService = blobStorageService;
     }
 
-    //hämtar användarens profil
+    // hämtar användarens profile
     [HttpGet]
     public async Task<IActionResult> GetProfile()
     {
+        // tillfällig user tills jwt/auth är klart
         var userId = "test-user";
 
         var result = await _profileService.GetProfileAsync(userId);
@@ -34,10 +36,11 @@ public class ProfileController : ControllerBase
         return Ok(result);
     }
 
-    //uppdaterar användarens profil
+    // uppdaterar profile datan
     [HttpPut]
     public async Task<IActionResult> UpdateProfile(UpdateProfileRequestDto request)
     {
+        // tillfällig user just nu
         var userId = "test-user";
 
         var result = await _profileService.UpdateProfileAsync(userId, request);
@@ -45,19 +48,23 @@ public class ProfileController : ControllerBase
         return Ok(result);
     }
 
+    // upload av profilbild
     [HttpPost("upload-image")]
     public async Task<IActionResult> UploadImage(
-    IFormFile file)
+        IFormFile file)
     {
+        // om ingen fil skickades med
         if (file == null || file.Length == 0)
-            return BadRequest("No file uploaded");
+            return BadRequest("ingen fil uppladdad");
 
+        // laddar upp bilden till azure blob storage
         var imageUrl =
             await _blobStorageService.UploadFileAsync(
-    file.OpenReadStream(),
-    file.FileName
+                file.OpenReadStream(),
+                file.FileName
             );
 
+        // skickar tillbaka bildens url
         return Ok(new
         {
             imageUrl
