@@ -1,96 +1,63 @@
-# lms-user-service
+lms-user-service
 
-Det här är min user/profile-service till vårt LMS-projekt i kursen Molntjänster och distribuerade system.
+Owner: Ayler Sabbagh
 
-Servicen ansvarar för användarens profilsida och hanterar bland annat:
+This is the user/profile service for our LMS project in the course Molntjänster och distribuerade system.
+The service is responsible for the user's profile page and handles profile information:
 
-* profilinformation
+* profile information
 * skills
 * achievements
-* profilbild
-* uppladdning av bilder till Azure Blob Storage
+* image uploads to Azure Blob Storage
 
-Projektet är byggt i ASP.NET Core Web API med Entity Framework Core och SQL Server.
+The project is built using ASP.NET Core Web API, Entity Framework Core, and SQL Server.
 
-# Funktioner
+Features
 
-Just nu finns stöd för:
+* Get profile
+* Update profile
+* Add and delete skills
+* Add and delete achievements
+* Upload profile image to Azure Blob Storage
 
-* Hämta profil
-* Uppdatera profil
-* Lägga till och ta bort skills
-* Lägga till och ta bort achievements
-* Ladda upp profilbild till Azure Blob Storage
+Tech Stack
 
-# Tekniker som används
-
-* ASP.NET Core Web API
+ * ASP.NET Core Web API
 * Entity Framework Core
 * SQL Server
 * Azure App Service
 * Azure SQL Database
 * Azure Blob Storage
-* Swagger/OpenAPI
+* Swagger/
 
-# API-endpoints
+API Endpoints 
 
-## Profile
+Profile
+GET /api/profile
+PUT /api/profile
+POST /api/profile/upload-image
 
-GET
-`/api/profile`
+Skills
+GET /api/profile/skills
+POST /api/profile/skills
+DELETE /api/profile/skills/{id}
 
-PUT
-`/api/profile`
+Achievements
+GET /api/profile/achievements
+POST /api/profile/achievements
+DELETE /api/profile/achievements/{id}
 
-POST
-`/api/profile/upload-image`
+How to run the project locally:
+Clone the repository, open the solution in Visual Studio, run the database migrations if the database does not exist, and start the project using the HTTPS profile. Swagger will open automatically when the application starts. 
 
-## Skills
+Azure
+The project is deployed to Azure App Service. The database runs on Azure SQL Database and images are stored in Azure Blob Storage. Secrets and connection strings are stored in Azure App Service settings and are not pushed to GitHub. 
 
-GET
-`/api/profile/skills`
+Frontend
+The frontend is built separately using Next.js and communicates with this service through API requests. 
 
-POST
-`/api/profile/skills`
+Base URL:
+https://lms-user-service-ayler-a9h4g0b9gterfhca.germanywestcentral-01.azurewebsites.net
 
-DELETE
-`/api/profile/skills/{id}`
-
-## Achievements
-
-GET
-`/api/profile/achievements`
-
-POST
-`/api/profile/achievements`
-
-DELETE
-`/api/profile/achievements/{id}`
-
-# Köra projektet lokalt
-
-1. Klona repot
-2. Öppna solutionen i Visual Studio
-3. Kör migrations om databasen saknas
-4. Starta projektet med HTTPS-profilen
-5. Swagger öppnas automatiskt
-
-# Azure
-
-Projektet är deployat till Azure App Service.
-
-Databasen körs via Azure SQL Database och bilder sparas i Azure Blob Storage.
-
-Secrets och connection strings ligger i Azure App Service settings och pushas inte till GitHub.
-
-# Frontend
-
-Frontenddelen är byggd separat i Next.js och kommunicerar med denna service via API-anrop.
-
-Exempel på base URL:
-
-`https://lms-user-service-ayler-a9h4g0b9gterfhca.germanywestcentral-01.azurewebsites.net`
-
-# Kommentar
-
-Fokus i projektet har varit att hålla lösningen enkel, tydlig och fungerande inom den begränsade tidsramen för kursen.
+ Environment variable:
+NEXT_PUBLIC_API_BASE=https://lms-user-service-ayler-a9h4g0b9gterfhca.germanywestcentral-01.azurewebsites.net
